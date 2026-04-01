@@ -251,6 +251,70 @@ html,body{height:100%;font-family:'Fira Sans',system-ui,sans-serif;background:va
 .add-comment button:hover{background:var(--accent2)}
 .no-classes-today{text-align:center;padding:28px;color:var(--text3);font-size:13px;line-height:1.7}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+
+/* ─── LIGHT THEME ─── */
+body.light{--bg:#f1f5f9;--bg2:#ffffff;--bg3:#f8fafc;--bg4:#e2e8f0;--text:#0f172a;--text2:#475569;--text3:#94a3b8;--border:#e2e8f0}
+
+/* ─── GROUP CONTEXT MENU ─── */
+.group-item-wrap{position:relative}
+.group-ctx-btn{width:20px;height:20px;border-radius:5px;border:none;background:transparent;color:var(--text3);font-size:13px;cursor:pointer;opacity:0;transition:opacity .15s;display:flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1}
+.group-item:hover .group-ctx-btn{opacity:1}
+.group-item.active .group-ctx-btn{color:#7a4a00}
+.ctx-menu{position:absolute;right:6px;top:28px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.3);z-index:500;min-width:140px;padding:4px;display:none}
+.ctx-menu.show{display:block}
+.ctx-item{padding:7px 12px;font-size:12px;cursor:pointer;border-radius:7px;display:flex;align-items:center;gap:8px;transition:background .12s;color:var(--text)}
+.ctx-item:hover{background:var(--bg3)}
+.ctx-item.danger{color:var(--danger)}
+.ctx-item.danger:hover{background:rgba(239,68,68,.1)}
+
+/* ─── SETTINGS PANEL ─── */
+#settings-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:2000;align-items:center;justify-content:center}
+#settings-modal.show{display:flex}
+.settings-box{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:28px;width:420px;max-height:90vh;overflow-y:auto}
+.settings-box h3{font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;color:var(--accent2);margin-bottom:20px}
+.settings-section{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.settings-section:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.settings-section-title{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.settings-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.settings-row label{font-size:12px;color:var(--text2);flex:1}
+.settings-row input[type=text]{flex:2;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:7px 10px;color:var(--text);font-size:13px;outline:none;font-family:inherit}
+.settings-row input[type=text]:focus{border-color:var(--accent)}
+.toggle-switch{position:relative;width:38px;height:22px;flex-shrink:0}
+.toggle-switch input{opacity:0;width:0;height:0;position:absolute}
+.toggle-slider{position:absolute;inset:0;background:var(--bg4);border-radius:11px;cursor:pointer;transition:.2s}
+.toggle-slider:before{content:'';position:absolute;width:16px;height:16px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.2s}
+.toggle-switch input:checked+.toggle-slider{background:var(--accent)}
+.toggle-switch input:checked+.toggle-slider:before{transform:translateX(16px)}
+.theme-btns{display:flex;gap:6px}
+.theme-btn{flex:1;padding:7px;border-radius:8px;border:1px solid var(--border);background:var(--bg3);color:var(--text2);cursor:pointer;font-size:11px;font-weight:600;font-family:inherit;transition:all .15s;text-align:center}
+.theme-btn.active{border-color:var(--accent);background:rgba(245,158,11,.1);color:var(--accent)}
+.settings-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:20px}
+
+/* ─── TRASH ─── */
+#trash-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:2000;align-items:center;justify-content:center}
+#trash-modal.show{display:flex}
+.trash-box{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:28px;width:520px;max-height:88vh;display:flex;flex-direction:column}
+.trash-box h3{font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;color:var(--accent2);margin-bottom:6px}
+.trash-box p{font-size:12px;color:var(--text3);margin-bottom:16px}
+.trash-tabs{display:flex;gap:6px;margin-bottom:14px}
+.trash-tab{padding:5px 12px;border-radius:7px;border:1px solid var(--border);background:var(--bg3);color:var(--text3);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s}
+.trash-tab.active{background:var(--accent);color:#1a1000;border-color:var(--accent)}
+.trash-list{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:8px}
+.trash-item{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:10px}
+.trash-item-info{flex:1;min-width:0}
+.trash-item-title{font-size:13px;font-weight:600;font-family:'Nunito',sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trash-item-meta{font-size:11px;color:var(--text3);margin-top:2px}
+.trash-empty{text-align:center;padding:30px;color:var(--text3);font-size:13px}
+.trash-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;padding-top:14px;border-top:1px solid var(--border)}
+
+/* ─── QUICK NOTES ─── */
+.quick-notes-bar{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius2);padding:12px 14px;margin-bottom:14px}
+.qn-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.qn-title{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.4px}
+.qn-textarea{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:8px 10px;color:var(--text);font-size:12px;outline:none;font-family:inherit;resize:none;min-height:60px;transition:border-color .2s;line-height:1.5}
+.qn-textarea:focus{border-color:var(--accent)}
+.qn-save-btn{margin-top:6px;padding:5px 12px;border-radius:7px;border:none;background:var(--accent);color:#1a1000;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit}
+.qn-save-btn:hover{background:var(--accent2)}
 </style>
 </head>
 <body>
@@ -262,7 +326,7 @@ html,body{height:100%;font-family:'Fira Sans',system-ui,sans-serif;background:va
     <button class="google-btn" id="google-signin-btn">
       <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">Iniciar sesión con Google
     </button>
-    <div class="login-info">Solo la cuenta <strong>franksanlo@gmail.com</strong><br>tiene acceso a esta aplicación.</div>
+    <div class="login-info">Solo la cuenta <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a6c0d4c7c8cdd5c7c8cac9e6c1cbc7cfca88c5c9cb">[email&#160;protected]</a></strong><br>tiene acceso a esta aplicación.</div>
     <div id="login-error">Acceso denegado. Solo el docente autorizado puede ingresar.</div>
   </div>
 </div>
@@ -294,8 +358,12 @@ html,body{height:100%;font-family:'Fira Sans',system-ui,sans-serif;background:va
         <div class="footer-row">
           <button class="footer-btn" onclick="exportData()">⬇ Exportar</button>
           <button class="footer-btn" onclick="document.getElementById('import-file').click()">⬆ Importar</button>
-          <button class="footer-btn" onclick="openColorPicker()">🎨 Color</button>
           <input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(event)">
+          <button class="footer-btn" onclick="openColorPicker()">🎨 Color</button>
+        </div>
+        <div class="footer-row">
+          <button class="footer-btn" onclick="openTrash()">🗑️ Papelera</button>
+          <button class="footer-btn" onclick="openSettings()">⚙️ Ajustes</button>
         </div>
         <button class="logout-btn" id="logout-btn">↩ Cerrar sesión</button>
       </div>
@@ -320,6 +388,7 @@ html,body{height:100%;font-family:'Fira Sans',system-ui,sans-serif;background:va
         </div>
         <div id="group-content" style="display:none">
           <div class="stat-row" id="stat-row"></div>
+          <div id="quick-notes-section"></div>
           <div id="cal-section"></div>
           <div id="grid-view"><div class="classes-grid" id="classes-grid"></div></div>
           <div id="list-view" style="display:none"><div id="classes-list-view"></div></div>
@@ -377,8 +446,63 @@ html,body{height:100%;font-family:'Fira Sans',system-ui,sans-serif;background:va
   </div>
 </div>
 
+<!-- SETTINGS -->
+<div id="settings-modal">
+  <div class="settings-box">
+    <h3>⚙️ Configuración</h3>
+    <div class="settings-section">
+      <div class="settings-section-title">Apariencia</div>
+      <div class="settings-row"><label>Tema</label>
+        <div class="theme-btns">
+          <button class="theme-btn" id="theme-dark" onclick="setTheme('dark')">🌙 Oscuro</button>
+          <button class="theme-btn" id="theme-light" onclick="setTheme('light')">☀️ Claro</button>
+        </div>
+      </div>
+    </div>
+    <div class="settings-section">
+      <div class="settings-section-title">Identidad de la app</div>
+      <div class="settings-row"><label>Nombre de la app</label><input type="text" id="cfg-app-name" placeholder="Mi Directorio Escolar"></div>
+      <div class="settings-row"><label>Subtítulo</label><input type="text" id="cfg-app-sub" placeholder="GI School · Tecnología · PYP"></div>
+    </div>
+    <div class="settings-section">
+      <div class="settings-section-title">Perfil del docente</div>
+      <div class="settings-row"><label>Tu nombre</label><input type="text" id="cfg-user-name" placeholder="Francisco Javier"></div>
+    </div>
+    <div class="settings-section">
+      <div class="settings-section-title">Datos</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <button class="btn btn-ghost btn-sm" style="text-align:left" onclick="exportData();closeSettings()">⬇ Exportar copia de seguridad (JSON)</button>
+        <button class="btn btn-ghost btn-sm" style="text-align:left" onclick="document.getElementById('import-file').click();closeSettings()">⬆ Importar datos desde JSON</button>
+        <button class="btn btn-sm" style="background:rgba(239,68,68,.12);color:#fca5a5;border:1px solid rgba(239,68,68,.25);text-align:left" onclick="confirmClearAll()">🗑 Borrar todos los datos y reiniciar</button>
+      </div>
+    </div>
+    <div class="settings-actions">
+      <button class="btn btn-ghost btn-sm" onclick="closeSettings()">Cancelar</button>
+      <button class="btn btn-primary btn-sm" onclick="saveSettings()">Guardar cambios</button>
+    </div>
+  </div>
+</div>
+
+<!-- TRASH -->
+<div id="trash-modal">
+  <div class="trash-box">
+    <h3>🗑️ Papelera</h3>
+    <p>Los elementos eliminados se restauran al grupo y clase original.</p>
+    <div class="trash-tabs">
+      <button class="trash-tab active" id="trash-tab-classes" onclick="switchTrashTab('classes')">Clases</button>
+      <button class="trash-tab" id="trash-tab-resources" onclick="switchTrashTab('resources')">Recursos</button>
+      <button class="trash-tab" id="trash-tab-groups" onclick="switchTrashTab('groups')">Grupos</button>
+    </div>
+    <div class="trash-list" id="trash-list"></div>
+    <div class="trash-actions">
+      <button class="btn btn-sm" style="background:rgba(239,68,68,.12);color:#fca5a5;border:1px solid rgba(239,68,68,.25)" onclick="emptyTrash()">Vaciar papelera</button>
+      <button class="btn btn-ghost btn-sm" onclick="closeTrash()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
 <!-- FIREBASE -->
-<script type="module">
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import{getAuth,GoogleAuthProvider,signInWithPopup,signInWithRedirect,getRedirectResult,signOut,onAuthStateChanged}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 const AUTHORIZED_EMAIL="franksanlo@gmail.com";
@@ -400,7 +524,7 @@ onAuthStateChanged(auth,user=>{
     document.getElementById('user-name').textContent=name;
     if(user.photoURL){document.getElementById('user-avatar').src=user.photoURL;document.getElementById('user-avatar').style.display='block';document.getElementById('user-avatar-placeholder').style.display='none';}
     else{document.getElementById('user-avatar-placeholder').textContent=name[0].toUpperCase();}
-    if(typeof loadState==='function'){loadState();renderSidebar();applyStoredColor();applyStoredLogo();}
+    if(typeof loadState==='function'){loadState();renderSidebar();applyStoredColor();applyStoredLogo();applyStoredTheme();applyStoredSettings();}
   }else{document.getElementById('app').classList.remove('show');document.getElementById('login-screen').classList.add('show');if(user)document.getElementById('login-error').style.display='block';}
 });
 </script>
@@ -461,31 +585,7 @@ function initDemo(){
   saveState();
 }
 
-/* ══ SIDEBAR ══ */
-function renderSidebar(){
-  const list=document.getElementById('grades-list');
-  const q=(document.getElementById('search-input')?.value||'').toLowerCase();
-  list.innerHTML='';
-  Object.values(state.grades).forEach((grade,gi)=>{
-    const isExp=expandedGrades[grade.id];
-    const groupsHtml=Object.values(grade.groups).map(grp=>{
-      if(q&&!grp.name.toLowerCase().includes(q)&&!Object.values(grp.classes).some(c=>c.title.toLowerCase().includes(q)))return'';
-      const cnt=Object.keys(grp.classes).length;
-      return`<div class="group-item${state.currentGroup===grp.id?' active':''}" onclick="selectGroup('${grade.id}','${grp.id}')">
-        <span class="group-dot"></span><span class="group-name">${grp.name}</span><span class="group-count">${cnt}</span></div>`;
-    }).join('');
-    const div=document.createElement('div');div.className='grade-item';
-    div.innerHTML=`<div class="grade-header${state.currentGrade===grade.id?' active':''}" onclick="toggleGrade('${grade.id}')">
-      <span class="grade-icon">${GRADE_ICONS[gi]}</span><span class="grade-name">${grade.name}</span>
-      <span class="grade-arrow${isExp?' open':''}">▶</span></div>
-      <div class="groups-list${isExp?' open':''}">
-        ${groupsHtml}
-        <button class="add-group-btn" onclick="event.stopPropagation();openGroupModal('${grade.id}')">+ Agregar grupo</button>
-      </div>`;
-    list.appendChild(div);
-  });
-}
-document.getElementById('search-input')?.addEventListener('input',renderSidebar);
+/* ══ SIDEBAR ══ (definido más abajo con menú de contexto de grupos) */
 function toggleGrade(gid){expandedGrades[gid]=!expandedGrades[gid];state.currentGrade=gid;renderSidebar();}
 function selectGroup(gid,grpId){
   state.currentGrade=gid;state.currentGroup=grpId;state.currentClass=null;
@@ -510,6 +610,7 @@ function renderGroupView(){
     <div class="stat-card"><div class="num">${totalRes}</div><div class="lbl">Recursos totales</div></div>
     <div class="stat-card"><div class="num">${classes.filter(c=>Object.keys(c.resources).length>0).length}</div><div class="lbl">Con recursos</div></div>`;
   renderCalendar();
+  renderQuickNotes();
   if(state.view==='grid')renderGridView(classes);else renderListView(classes);
 }
 function setView(v){
@@ -827,11 +928,6 @@ function openEditClassModal(clsId){
       saveState();closeModal();if(state.currentClass===clsId)renderClassDetail(clsId);else renderGroupView();
     });
 }
-function deleteClass(clsId){
-  if(!confirm('¿Eliminar esta clase y todos sus recursos?'))return;
-  delete state.grades[state.currentGrade].groups[state.currentGroup].classes[clsId];
-  saveState();if(state.currentClass===clsId)state.currentClass=null;renderGroupView();
-}
 function openResourceModal(clsId){
   openModal('Agregar Recurso',
     `<div class="form-group"><label>Tipo</label>
@@ -868,12 +964,6 @@ function openEditResourceModal(clsId,resId){
       saveState();closeModal();if(state.currentClass===clsId)renderClassDetail(clsId);
     });
 }
-function deleteResource(clsId,resId){
-  if(!confirm('¿Eliminar este recurso?'))return;
-  delete state.grades[state.currentGrade].groups[state.currentGroup].classes[clsId].resources[resId];
-  saveState();renderClassDetail(clsId);
-}
-
 /* ══ COLOR PICKER RADIAL ══ */
 let cpColor='#f59e0b';
 const PRESETS=['#f59e0b','#3b82f6','#10b981','#ec4899','#8b5cf6','#ef4444','#06b6d4','#f97316','#84cc16','#e879f9','#14b8a6','#f43f5e'];
@@ -1035,8 +1125,219 @@ function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt
 function escAttr(s){return String(s||'').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 function escAttrQ(s){return String(s||'').replace(/"/g,'&quot;');}
 
+/* ══ THEME ══ */
+function setTheme(t){
+  document.body.classList.toggle('light',t==='light');
+  localStorage.setItem('mde-theme',t);
+  document.getElementById('theme-dark')?.classList.toggle('active',t==='dark');
+  document.getElementById('theme-light')?.classList.toggle('active',t==='light');
+}
+function applyStoredTheme(){const t=localStorage.getItem('mde-theme')||'dark';document.body.classList.toggle('light',t==='light');}
+
+/* ══ SETTINGS ══ */
+function openSettings(){
+  document.getElementById('settings-modal').classList.add('show');
+  const t=localStorage.getItem('mde-theme')||'dark';
+  document.getElementById('theme-dark').classList.toggle('active',t==='dark');
+  document.getElementById('theme-light').classList.toggle('active',t==='light');
+  document.getElementById('cfg-app-name').value=localStorage.getItem('mde-app-name')||'Mi Directorio Escolar';
+  document.getElementById('cfg-app-sub').value=localStorage.getItem('mde-app-sub')||'GI School · Tecnología · PYP';
+  document.getElementById('cfg-user-name').value=localStorage.getItem('mde-user-name')||document.getElementById('user-name').textContent||'Francisco Javier';
+}
+function closeSettings(){document.getElementById('settings-modal').classList.remove('show');}
+function saveSettings(){
+  const appName=document.getElementById('cfg-app-name').value.trim()||'Mi Directorio Escolar';
+  const appSub=document.getElementById('cfg-app-sub').value.trim()||'GI School · Tecnología · PYP';
+  const userName=document.getElementById('cfg-user-name').value.trim()||'Francisco Javier';
+  localStorage.setItem('mde-app-name',appName);localStorage.setItem('mde-app-sub',appSub);localStorage.setItem('mde-user-name',userName);
+  const h1=document.querySelector('#logo-text-area h1');if(h1)h1.textContent=appName;
+  const sub=document.querySelector('#logo-text-area p');if(sub)sub.textContent=appSub;
+  document.getElementById('user-name').textContent=userName;
+  document.getElementById('user-avatar-placeholder').textContent=userName[0].toUpperCase();
+  document.title=appName;closeSettings();
+}
+function applyStoredSettings(){
+  const appName=localStorage.getItem('mde-app-name');const appSub=localStorage.getItem('mde-app-sub');const userName=localStorage.getItem('mde-user-name');
+  if(appName){const h1=document.querySelector('#logo-text-area h1');if(h1)h1.textContent=appName;document.title=appName;}
+  if(appSub){const sub=document.querySelector('#logo-text-area p');if(sub)sub.textContent=appSub;}
+  if(userName){document.getElementById('user-name').textContent=userName;document.getElementById('user-avatar-placeholder').textContent=userName[0].toUpperCase();}
+}
+function confirmClearAll(){
+  if(!confirm('⚠️ Esto borrará TODOS tus datos permanentemente. ¿Continuar?'))return;
+  if(!confirm('Segunda confirmación: ¿seguro que quieres borrar todo?'))return;
+  localStorage.removeItem('mi-directorio-v3');localStorage.removeItem('mde-trash');
+  closeSettings();initDemo();renderSidebar();
+  document.getElementById('welcome-screen').style.display='flex';
+  document.getElementById('group-content').style.display='none';
+  document.getElementById('class-detail').style.display='none';
+  document.getElementById('add-class-btn').style.display='none';
+}
+
+/* ══ PAPELERA ══ */
+let trashCurrentTab='classes';
+function getTrash(){try{return JSON.parse(localStorage.getItem('mde-trash')||'{}')}catch(e){return{};}}
+function saveTrash(t){localStorage.setItem('mde-trash',JSON.stringify(t));}
+function moveToTrash(type,item,meta){
+  const t=getTrash();if(!t[type])t[type]=[];
+  t[type].unshift({...item,_meta:meta,_deletedAt:new Date().toISOString()});saveTrash(t);
+}
+// Redeclare deleteClass/deleteResource with trash support
+function deleteClass(clsId){
+  if(!confirm('¿Mover esta clase a la papelera?'))return;
+  const cls=state.grades[state.currentGrade].groups[state.currentGroup].classes[clsId];
+  moveToTrash('classes',JSON.parse(JSON.stringify(cls)),{gradeId:state.currentGrade,groupId:state.currentGroup});
+  delete state.grades[state.currentGrade].groups[state.currentGroup].classes[clsId];
+  saveState();if(state.currentClass===clsId)state.currentClass=null;renderGroupView();
+}
+function deleteResource(clsId,resId){
+  if(!confirm('¿Mover este recurso a la papelera?'))return;
+  const r=state.grades[state.currentGrade].groups[state.currentGroup].classes[clsId].resources[resId];
+  moveToTrash('resources',JSON.parse(JSON.stringify(r)),{gradeId:state.currentGrade,groupId:state.currentGroup,clsId});
+  delete state.grades[state.currentGrade].groups[state.currentGroup].classes[clsId].resources[resId];
+  saveState();renderClassDetail(clsId);
+}
+function openTrash(){document.getElementById('trash-modal').classList.add('show');switchTrashTab('classes');}
+function closeTrash(){document.getElementById('trash-modal').classList.remove('show');}
+function switchTrashTab(tab){
+  trashCurrentTab=tab;
+  ['classes','resources','groups'].forEach(t=>document.getElementById('trash-tab-'+t)?.classList.toggle('active',t===tab));
+  renderTrashList();
+}
+function renderTrashList(){
+  const t=getTrash();const items=(t[trashCurrentTab]||[]);
+  const list=document.getElementById('trash-list');
+  if(!items.length){list.innerHTML=`<div class="trash-empty">✅ La papelera está vacía</div>`;return;}
+  list.innerHTML=items.map((item,i)=>{
+    const date=item._deletedAt?new Date(item._deletedAt).toLocaleDateString('es-CO'):'';
+    let meta='';
+    if(trashCurrentTab==='classes'){const g=state.grades[item._meta?.gradeId];const grp=g?.groups[item._meta?.groupId];meta=(g?.name||'?')+' › '+(grp?.name||'?');}
+    else if(trashCurrentTab==='resources'){const g=state.grades[item._meta?.gradeId];const grp=g?.groups[item._meta?.groupId];const cls=grp?.classes[item._meta?.clsId];meta=(g?.name||'?')+' › '+(grp?.name||'?')+' › '+(cls?.title||'?');}
+    else if(trashCurrentTab==='groups'){const g=state.grades[item._meta?.gradeId];meta=g?.name||'?';}
+    return`<div class="trash-item">
+      <div style="font-size:18px">${trashCurrentTab==='classes'?'📄':trashCurrentTab==='resources'?(RES_TYPES[item.type]?.icon||'📎'):'👥'}</div>
+      <div class="trash-item-info">
+        <div class="trash-item-title">${escHtml(item.title||item.name||'Sin título')}</div>
+        <div class="trash-item-meta">${escHtml(meta)} · ${date}</div>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="restoreItem('${trashCurrentTab}',${i})" style="flex-shrink:0">↩ Restaurar</button>
+      <button class="icon-btn danger" onclick="permanentDelete('${trashCurrentTab}',${i})" title="Eliminar definitivamente">✕</button>
+    </div>`;
+  }).join('');
+}
+function restoreItem(type,idx){
+  const t=getTrash();const item=t[type][idx];if(!item)return;
+  if(type==='classes'){
+    const{gradeId,groupId}=item._meta||{};
+    if(state.grades[gradeId]?.groups[groupId]){const cls={...item};delete cls._meta;delete cls._deletedAt;if(!cls.resources)cls.resources={};state.grades[gradeId].groups[groupId].classes[cls.id]=cls;saveState();}
+    else{alert('El grupo original ya no existe.');}
+  } else if(type==='resources'){
+    const{gradeId,groupId,clsId}=item._meta||{};
+    if(state.grades[gradeId]?.groups[groupId]?.classes[clsId]){const r={...item};delete r._meta;delete r._deletedAt;state.grades[gradeId].groups[groupId].classes[clsId].resources[r.id]=r;saveState();}
+    else{alert('La clase original ya no existe.');}
+  } else if(type==='groups'){
+    const{gradeId}=item._meta||{};
+    if(state.grades[gradeId]){const grp={...item};delete grp._meta;delete grp._deletedAt;if(!grp.classes)grp.classes={};state.grades[gradeId].groups[grp.id]=grp;saveState();renderSidebar();}
+    else{alert('El grado original ya no existe.');}
+  }
+  t[type].splice(idx,1);saveTrash(t);renderTrashList();
+}
+function permanentDelete(type,idx){
+  if(!confirm('¿Eliminar definitivamente? Esta acción no se puede deshacer.'))return;
+  const t=getTrash();t[type].splice(idx,1);saveTrash(t);renderTrashList();
+}
+function emptyTrash(){
+  if(!confirm('¿Vaciar toda la papelera? No se puede deshacer.'))return;
+  saveTrash({});renderTrashList();
+}
+
+/* ══ GRUPOS EDITAR/ELIMINAR ══ */
+let openCtxMenuId=null;
+// Override renderSidebar to include group context menu
+function renderSidebar(){
+  const list=document.getElementById('grades-list');
+  const q=(document.getElementById('search-input')?.value||'').toLowerCase();
+  list.innerHTML='';openCtxMenuId=null;
+  Object.values(state.grades).forEach((grade,gi)=>{
+    const isExp=expandedGrades[grade.id];
+    const groupsHtml=Object.values(grade.groups).map(grp=>{
+      if(q&&!grp.name.toLowerCase().includes(q)&&!Object.values(grp.classes).some(c=>c.title.toLowerCase().includes(q)))return'';
+      const cnt=Object.keys(grp.classes).length;
+      return`<div style="position:relative">
+        <div class="group-item${state.currentGroup===grp.id?' active':''}" onclick="selectGroup('${grade.id}','${grp.id}')">
+          <span class="group-dot"></span><span class="group-name">${escHtml(grp.name)}</span><span class="group-count">${cnt}</span>
+          <button class="group-ctx-btn" onclick="event.stopPropagation();toggleCtxMenu('${grp.id}')" title="Opciones">⋯</button>
+        </div>
+        <div class="ctx-menu" id="ctx-${grp.id}">
+          <div class="ctx-item" onclick="openEditGroupModal('${grade.id}','${grp.id}')">✏️ Renombrar</div>
+          <div class="ctx-item danger" onclick="deleteGroup('${grade.id}','${grp.id}')">🗑 Eliminar grupo</div>
+        </div>
+      </div>`;
+    }).join('');
+    const div=document.createElement('div');div.className='grade-item';
+    div.innerHTML=`<div class="grade-header${state.currentGrade===grade.id?' active':''}" onclick="toggleGrade('${grade.id}')">
+      <span class="grade-icon">${GRADE_ICONS[gi]}</span><span class="grade-name">${grade.name}</span>
+      <span class="grade-arrow${isExp?' open':''}">▶</span></div>
+      <div class="groups-list${isExp?' open':''}">
+        ${groupsHtml}
+        <button class="add-group-btn" onclick="event.stopPropagation();openGroupModal('${grade.id}')">+ Agregar grupo</button>
+      </div>`;
+    list.appendChild(div);
+  });
+}
+document.getElementById('search-input')?.addEventListener('input',renderSidebar);
+
+function toggleCtxMenu(grpId){
+  if(openCtxMenuId&&openCtxMenuId!==grpId){document.getElementById('ctx-'+openCtxMenuId)?.classList.remove('show');}
+  const m=document.getElementById('ctx-'+grpId);if(m){m.classList.toggle('show');openCtxMenuId=m.classList.contains('show')?grpId:null;}
+}
+document.addEventListener('click',function(e){
+  if(openCtxMenuId&&!e.target.closest('.group-ctx-btn')&&!e.target.closest('.ctx-menu')){
+    document.getElementById('ctx-'+openCtxMenuId)?.classList.remove('show');openCtxMenuId=null;
+  }
+});
+function closeCtxMenu(){if(openCtxMenuId){document.getElementById('ctx-'+openCtxMenuId)?.classList.remove('show');openCtxMenuId=null;}}
+function openEditGroupModal(gid,grpId){
+  closeCtxMenu();
+  const grp=state.grades[gid].groups[grpId];
+  openModal('Renombrar Grupo',`<div class="form-group"><label>Nombre del grupo</label><input id="f-grp-name" value="${escAttrQ(grp.name)}" autofocus></div>`,
+    ()=>{const name=document.getElementById('f-grp-name').value.trim();if(!name){alert('Escribe el nombre.');return;}
+      grp.name=name;saveState();closeModal();renderSidebar();if(state.currentGroup===grpId)renderGroupView();});
+}
+function deleteGroup(gid,grpId){
+  closeCtxMenu();
+  const grp=state.grades[gid].groups[grpId];
+  if(!confirm(`¿Mover el grupo "${grp.name}" a la papelera?`))return;
+  moveToTrash('groups',JSON.parse(JSON.stringify(grp)),{gradeId:gid});
+  delete state.grades[gid].groups[grpId];saveState();
+  if(state.currentGroup===grpId){state.currentGroup=null;state.currentClass=null;
+    document.getElementById('group-content').style.display='none';
+    document.getElementById('welcome-screen').style.display='flex';
+    document.getElementById('add-class-btn').style.display='none';
+    document.getElementById('breadcrumb').innerHTML='Mi Directorio Escolar';
+  }
+  renderSidebar();
+}
+
+/* ══ NOTAS RÁPIDAS ══ */
+function renderQuickNotes(){
+  const sec=document.getElementById('quick-notes-section');if(!sec)return;
+  const grp=state.grades[state.currentGrade]?.groups[state.currentGroup];if(!grp)return;
+  if(!grp.notes)grp.notes='';
+  sec.innerHTML=`<div class="quick-notes-bar">
+    <div class="qn-header"><span class="qn-title">📝 Notas rápidas — ${escHtml(grp.name)}</span></div>
+    <textarea class="qn-textarea" id="qn-text" placeholder="Anota recordatorios, pendientes o ideas para este grupo...">${escHtml(grp.notes)}</textarea>
+    <button class="qn-save-btn" onclick="saveQuickNotes()">Guardar nota</button>
+  </div>`;
+}
+function saveQuickNotes(){
+  const text=document.getElementById('qn-text')?.value||'';
+  const grp=state.grades[state.currentGrade]?.groups[state.currentGroup];if(!grp)return;
+  grp.notes=text;saveState();
+  const btn=document.querySelector('.qn-save-btn');if(btn){btn.textContent='✓ Guardado';setTimeout(()=>btn.textContent='Guardar nota',1400);}
+}
+
 document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){closeModal();closeColorPicker();closeLogoPicker();}
+  if(e.key==='Escape'){closeModal();closeColorPicker();closeLogoPicker();closeSettings();closeTrash();closeCtxMenu();}
   if(e.key==='Enter'&&document.getElementById('modal-overlay').classList.contains('show')&&document.activeElement.tagName!=='TEXTAREA')modalSaveHandler();
 });
 </script>
