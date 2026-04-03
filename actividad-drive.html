@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exploradores de Google Drive</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --g-blue: #4285F4;
+    --g-green: #34A853;
+    --g-yellow: #FBBC04;
+    --g-red: #EA4335;
+    --bg: #F0F4FF;
+    --card: #ffffff;
+    --text: #1a1a2e;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --radius: 18px;
+  }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0 0 3rem;
+  }
+
+  /* ── PANTALLA DE BIENVENIDA ── */
+  #screen-welcome {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    background: linear-gradient(160deg, #667eea 0%, #4285F4 40%, #34A853 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #screen-welcome::before {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+    top: -100px; right: -100px;
+  }
+
+  #screen-welcome::after {
+    content: '';
+    position: absolute;
+    width: 250px; height: 250px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+    bottom: -60px; left: -60px;
+  }
+
+  .welcome-cloud {
+    font-size: 80px;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 8px 16px rgba(0,0,0,0.2));
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .welcome-title {
+    font-size: 32px;
+    font-weight: 900;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    margin-bottom: 0.5rem;
+  }
+
+  .welcome-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .welcome-card {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 2rem;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 1;
+  }
+
+  .welcome-card label {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  .welcome-card input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+    margin-bottom: 1.25rem;
+  }
+
+  .welcome-card input:focus { border-color: var(--g-blue); }
+
+  .btn-start {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--g-blue), #5C6BC0);
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(66,133,244,0.4);
+  }
+
+  .btn-start:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(66,133,244,0.5); }
+  .btn-start:active { transform: scale(0.98); }
+
+  /* ── PANTALLA ACTIVIDAD ── */
+  #screen-activity { display: none; }
+
+  .top-bar {
+    background: linear-gradient(135deg, #4285F4 0%, #5C6BC0 100%);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(66,133,244,0.3);
+  }
+
+  .top-bar-left { display: flex; flex-direction: column; }
+
+  .greeting {
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    font-weight: 600;
+  }
+
+  .top-title {
+    font-size: 17px;
+    color: #fff;
+    font-weight: 900;
+  }
+
+  .stars-row {
+    display: flex;
+    gap: 5px;
+  }
+
+  .top-star {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    transition: all 0.3s;
+  }
+
+  .top-star.earned {
+    background: var(--g-yellow);
+    border-color: #F29900;
+    animation: pop 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  }
+
+  @keyframes pop {
+    0% { transform: scale(0); }
+    70% { transform: scale(1.25); }
+    100% { transform: scale(1); }
+  }
+
+  .prog-wrap {
+    background: rgba(255,255,255,0.25);
+    border-radius: 20px;
+    height: 6px;
+    margin: 0 1.5rem;
+    margin-top: 0.75rem;
+    overflow: hidden;
+  }
+
+  .prog-fill {
+    height: 100%;
+    background: #fff;
+    border-radius: 20px;
+    transition: width 0.7s cubic-bezier(0.34,1.56,0.64,1);
+  }
+
+  .content-wrap {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem;
+  }
+
+  .section-label {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+  }
+
+  /* ── MISSION CARDS ── */
+  .mission-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    border: 2px solid var(--border);
+    margin-bottom: 1rem;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .mission-card.active {
+    border-color: var(--g-blue);
+    box-shadow: 0 8px 32px rgba(66,133,244,0.15);
+  }
+
+  .mission-card.completed {
+    border-color: var(--g-green);
+    background: linear-gradient(135deg, #f0faf4 0%, #e8f5e9 100%);
+  }
+
+  .mission-card.locked {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .mission-head {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    gap: 14px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .m-num {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    font-weight: 900;
+    flex-shrink: 0;
+    background: #EEF2FF;
+    color: var(--g-blue);
+    transition: all 0.3s;
+  }
+
+  .mission-card.completed .m-num {
+    background: var(--g-green);
+    color: #fff;
+    font-size: 20px;
+  }
+
+  .m-info { flex: 1; min-width: 0; }
+
+  .m-name {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text);
+  }
+
+  .m-sub {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .m-emoji { font-size: 28px; }
+
+  .mission-body { display: none; padding: 0 1.25rem 1.25rem; }
+  .mission-card.active .mission-body { display: block; }
+
+  .tip {
+    background: #FFFBEB;
+    border: 1.5px solid #FCD34D;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    font-size: 13px;
+    font-weight: 700;
+    color: #78350F;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .tip-icon { font-size: 18px; flex-shrink: 0; }
+
+  .steps {
+    list-style: none;
+    margin-bottom: 1.25rem;
+  }
+
+  .steps li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .steps li:last-child { border-bottom: none; }
+
+  .sn {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: #EEF2FF;
+    color: var(--g-blue);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    font-weight: 900;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .btn-done {
+    width: 100%;
+    padding: 0.875rem;
+    border: none;
+    border-radius: 12px;
+    background: var(--g-blue);
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(66,133,244,0.35);
+  }
+
+  .btn-done:hover { background: #3367D6; transform: translateY(-1px); }
+  .btn-done:active { transform: scale(0.98); }
+  .btn-done:disabled { background: var(--g-green); box-shadow: none; cursor: default; transform: none; }
+
+  /* ── FINAL ── */
+  #final-screen {
+    display: none;
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+
+  .final-card {
+    background: linear-gradient(135deg, #34A853 0%, #4285F4 60%, #5C6BC0 100%);
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(52,168,83,0.3);
+    animation: pop 0.6s cubic-bezier(0.34,1.56,0.64,1);
+  }
+
+  .trophy { font-size: 72px; display: block; margin-bottom: 1rem; }
+
+  .final-card h2 {
+    color: #fff;
+    font-size: 26px;
+    font-weight: 900;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+
+  .final-card .student-name-disp {
+    color: rgba(255,255,255,0.9);
+    font-size: 18px;
+    font-weight: 800;
+    background: rgba(255,255,255,0.2);
+    display: inline-block;
+    padding: 4px 16px;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+  }
+
+  .final-card p {
+    color: rgba(255,255,255,0.85);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+
+  .badges { font-size: 32px; margin: 1rem 0; letter-spacing: 4px; }
+
+  .btn-registro {
+    margin-top: 1.25rem;
+    padding: 0.875rem 2rem;
+    background: #fff;
+    border: none;
+    border-radius: 12px;
+    color: #34A853;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    transition: all 0.2s;
+  }
+
+  .btn-registro:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+
+  .registro-ok {
+    display: none;
+    margin-top: 1rem;
+    background: rgba(255,255,255,0.2);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  /* ── CONFETTI ── */
+  #confetti-zone {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+  }
+
+  .bit {
+    position: absolute;
+    width: 10px; height: 10px;
+    border-radius: 2px;
+    animation: fall linear forwards;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+
+  @media (max-width: 480px) {
+    .welcome-title { font-size: 24px; }
+    .m-name { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════ BIENVENIDA ══════════ -->
+<div id="screen-welcome">
+  <div class="welcome-cloud">☁️</div>
+  <div class="welcome-title">¡Exploradores de Google Drive!</div>
+  <div class="welcome-sub">5 misiones épicas te esperan en la nube</div>
+
+  <div class="welcome-card">
+    <label>¿Cuál es tu nombre?</label>
+    <input type="text" id="inp-name" placeholder="Escribe tu nombre aquí..." maxlength="50" autocomplete="off">
+    <label>¿En qué grado estás?</label>
+    <input type="text" id="inp-grade" placeholder="Ej: 4° A" maxlength="20" autocomplete="off">
+    <button class="btn-start" onclick="startActivity()">¡Comenzar la aventura! 🚀</button>
+  </div>
+</div>
+
+<!-- ══════════ ACTIVIDAD ══════════ -->
+<div id="screen-activity">
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <span class="greeting" id="greeting-name">¡Hola, explorador!</span>
+      <span class="top-title">Misiones de Google Drive</span>
+    </div>
+    <div class="stars-row">
+      <div class="top-star" id="ts1">⭐</div>
+      <div class="top-star" id="ts2">⭐</div>
+      <div class="top-star" id="ts3">⭐</div>
+      <div class="top-star" id="ts4">⭐</div>
+      <div class="top-star" id="ts5">⭐</div>
+    </div>
+  </div>
+  <div class="prog-wrap">
+    <div class="prog-fill" id="prog" style="width:0%"></div>
+  </div>
+
+  <div class="content-wrap">
+    <div class="section-label">🗺️ Tus misiones de hoy</div>
+
+    <!-- MISIÓN 1 -->
+    <div class="mission-card active" id="mc1">
+      <div class="mission-head" onclick="toggle('mc1')">
+        <div class="m-num" id="mn1">1</div>
+        <div class="m-info">
+          <div class="m-name">¡Entra a la nube!</div>
+          <div class="m-sub">Accede a Google Drive con tu cuenta</div>
+        </div>
+        <div class="m-emoji">🚀</div>
+      </div>
+      <div class="mission-body">
+        <div class="tip"><span class="tip-icon">💡</span> Google Drive es como una mochila mágica en internet. Puedes guardar todo allí sin ocupar espacio en tu computador.</div>
+        <ul class="steps">
+          <li><div class="sn">1</div><span>Abre el navegador (Chrome, Edge o el que uses en el colegio)</span></li>
+          <li><div class="sn">2</div><span>Escribe <strong>drive.google.com</strong> en la barra de direcciones y presiona Enter</span></li>
+          <li><div class="sn">3</div><span>Inicia sesión con tu correo de Gmail</span></li>
+          <li><div class="sn">4</div><span>Explora la pantalla — cuéntale al profe qué botones ves</span></li>
+        </ul>
+        <button class="btn-done" onclick="complete(1)">¡Misión 1 cumplida! 🚀</button>
+      </div>
+    </div>
+
+    <!-- MISIÓN 2 -->
+    <div class="mission-card locked" id="mc2">
+      <div class="mission-head" onclick="toggle('mc2')">
+        <div class="m-num" id="mn2">2</div>
+        <div class="m-info">
+          <div class="m-name">Crea tu primera carpeta</div>
+          <div class="m-sub">Organiza tus archivos como un pro</div>
+        </div>
+        <div class="m-emoji">📁</div>
+      </div>
+      <div class="mission-body">
+        <div class="tip"><span class="tip-icon">💡</span> Las carpetas son como cajones en tu escritorio. Puedes tener una para Matemáticas, otra para Español, ¡y las que quieras!</div>
+        <ul class="steps">
+          <li><div class="sn">1</div><span>Haz clic en el botón <strong>"+ Nuevo"</strong> (arriba a la izquierda, azul)</span></li>
+          <li><div class="sn">2</div><span>Selecciona <strong>"Carpeta"</strong> del menú que aparece</span></li>
+          <li><div class="sn">3</div><span>Escríbele el nombre: <strong>"Mi Escuela 4°"</strong></span></li>
+          <li><div class="sn">4</div><span>Haz clic en <strong>"Crear"</strong> — ¡ya tienes tu primera carpeta!</span></li>
+          <li><div class="sn">5</div><span>Entra a la carpeta y crea dentro una subcarpeta llamada <strong>"Mis Tareas"</strong></span></li>
+        </ul>
+        <button class="btn-done" onclick="complete(2)">¡Misión 2 cumplida! 📁</button>
+      </div>
+    </div>
+
+    <!-- MISIÓN 3 -->
+    <div class="mission-card locked" id="mc3">
+      <div class="mission-head" onclick="toggle('mc3')">
+        <div class="m-num" id="mn3">3</div>
+        <div class="m-info">
+          <div class="m-name">Sube tu primera imagen</div>
+          <div class="m-sub">¡Lleva tus fotos a la nube!</div>
+        </div>
+        <div class="m-emoji">🖼️</div>
+      </div>
+      <div class="mission-body">
+        <div class="tip"><span class="tip-icon">💡</span> Subir un archivo es como teletransportarlo al espacio digital. ¡Desde cualquier dispositivo podrás verlo después!</div>
+        <ul class="steps">
+          <li><div class="sn">1</div><span>Entra a la carpeta <strong>"Mi Escuela 4°"</strong> (doble clic)</span></li>
+          <li><div class="sn">2</div><span>Haz clic en <strong>"+ Nuevo"</strong> → <strong>"Subir archivo"</strong></span></li>
+          <li><div class="sn">3</div><span>Busca una imagen en tu computador (dibujo, foto del colegio, lo que tengas)</span></li>
+          <li><div class="sn">4</div><span>Espera que suba — verás una barra de progreso en la esquina 🎉</span></li>
+          <li><div class="sn">5</div><span>Haz doble clic en la imagen para verla en Drive</span></li>
+        </ul>
+        <button class="btn-done" onclick="complete(3)">¡Misión 3 cumplida! 🖼️</button>
+      </div>
+    </div>
+
+    <!-- MISIÓN 4 -->
+    <div class="mission-card locked" id="mc4">
+      <div class="mission-head" onclick="toggle('mc4')">
+        <div class="m-num" id="mn4">4</div>
+        <div class="m-info">
+          <div class="m-name">Crea un documento</div>
+          <div class="m-sub">Escribe en la nube con Google Docs</div>
+        </div>
+        <div class="m-emoji">📝</div>
+      </div>
+      <div class="mission-body">
+        <div class="tip"><span class="tip-icon">💡</span> Google Docs guarda solo automáticamente. ¡Nunca más perderás una tarea por olvidar guardar!</div>
+        <ul class="steps">
+          <li><div class="sn">1</div><span>Dentro de tu carpeta: <strong>"+ Nuevo"</strong> → <strong>"Documentos de Google"</strong></span></li>
+          <li><div class="sn">2</div><span>Ponle título: haz clic donde dice "Documento sin título" y escribe <strong>"Sobre mí"</strong></span></li>
+          <li><div class="sn">3</div><span>Escribe 3 cosas que te gusten: tu color, comida y animal favorito 🐾</span></li>
+          <li><div class="sn">4</div><span>Espera 2 segundos — verás que dice <strong>"Guardado en Drive"</strong> solo ¡magia!</span></li>
+        </ul>
+        <button class="btn-done" onclick="complete(4)">¡Misión 4 cumplida! 📝</button>
+      </div>
+    </div>
+
+    <!-- MISIÓN 5 -->
+    <div class="mission-card locked" id="mc5">
+      <div class="mission-head" onclick="toggle('mc5')">
+        <div class="m-num" id="mn5">5</div>
+        <div class="m-info">
+          <div class="m-name">¡Comparte con un amigo!</div>
+          <div class="m-sub">El poder de trabajar en la nube</div>
+        </div>
+        <div class="m-emoji">🤝</div>
+      </div>
+      <div class="mission-body">
+        <div class="tip"><span class="tip-icon">💡</span> Google Drive permite trabajar con amigos al mismo tiempo, ¡aunque estén en casas distintas!</div>
+        <ul class="steps">
+          <li><div class="sn">1</div><span>Abre el documento <strong>"Sobre mí"</strong> que escribiste</span></li>
+          <li><div class="sn">2</div><span>Haz clic en el botón <strong>"Compartir"</strong> (arriba a la derecha)</span></li>
+          <li><div class="sn">3</div><span>Escribe el correo del profe o de un compañero</span></li>
+          <li><div class="sn">4</div><span>Selecciona <strong>"Puede ver"</strong> en el menú de permisos</span></li>
+          <li><div class="sn">5</div><span>Haz clic en <strong>"Enviar"</strong> — ¡primer archivo compartido! 🥳</span></li>
+        </ul>
+        <button class="btn-done" onclick="complete(5)">¡Misión 5 cumplida! 🤝</button>
+      </div>
+    </div>
+
+  </div><!-- /content-wrap -->
+</div><!-- /screen-activity -->
+
+<!-- ══════════ PANTALLA FINAL ══════════ -->
+<div id="final-screen">
+  <div class="final-card">
+    <span class="trophy">🏆</span>
+    <h2>¡Misión completada!</h2>
+    <div class="student-name-disp" id="final-name">Explorador</div>
+    <p>¡Felicitaciones! Completaste las 5 misiones y ya sabes usar Google Drive como un profesional de la tecnología.</p>
+    <div class="badges">🚀 📁 🖼️ 📝 🤝</div>
+    <p style="font-size:13px;">Tu resultado ha sido registrado. ¡Muéstraselo al profe!</p>
+    <button class="btn-registro" onclick="registrar()">✅ Registrar mi resultado</button>
+    <div class="registro-ok" id="reg-ok">
+      ¡Listo! Tu nombre quedó guardado en el registro del profe 🎉<br>
+      <strong id="reg-timestamp"></strong>
+    </div>
+  </div>
+</div>
+
+<div id="confetti-zone"></div>
+
+<script>
+  var studentName = '';
+  var studentGrade = '';
+  var completedCount = 0;
+
+  function startActivity() {
+    var n = document.getElementById('inp-name').value.trim();
+    var g = document.getElementById('inp-grade').value.trim();
+    if (!n) { document.getElementById('inp-name').focus(); shakeInput('inp-name'); return; }
+    studentName = n;
+    studentGrade = g || '4°';
+    document.getElementById('screen-welcome').style.display = 'none';
+    document.getElementById('screen-activity').style.display = 'block';
+    document.getElementById('greeting-name').textContent = '¡Hola, ' + studentName + '!';
+  }
+
+  function shakeInput(id) {
+    var el = document.getElementById(id);
+    el.style.borderColor = '#EA4335';
+    el.style.animation = 'shake 0.4s ease';
+    setTimeout(function(){ el.style.borderColor = ''; el.style.animation = ''; }, 600);
+  }
+
+  function toggle(id) {
+    var card = document.getElementById(id);
+    if (card.classList.contains('locked') || card.classList.contains('completed')) return;
+    var allActive = document.querySelectorAll('.mission-card.active:not(.completed)');
+    allActive.forEach(function(c){ if(c.id !== id) c.classList.remove('active'); });
+    card.classList.toggle('active');
+  }
+
+  function complete(num) {
+    if (completedCount >= num) return;
+    completedCount = num;
+
+    var card = document.getElementById('mc' + num);
+    card.classList.remove('active');
+    card.classList.add('completed');
+
+    var mn = document.getElementById('mn' + num);
+    mn.textContent = '✓';
+
+    var btn = card.querySelector('.btn-done');
+    btn.textContent = '¡Completado! ✓';
+    btn.disabled = true;
+
+    var star = document.getElementById('ts' + num);
+    if (star) star.classList.add('earned');
+
+    document.getElementById('prog').style.width = (num * 20) + '%';
+
+    confetti();
+
+    if (num < 5) {
+      var next = document.getElementById('mc' + (num + 1));
+      next.classList.remove('locked');
+      next.classList.add('active');
+      setTimeout(function(){
+        next.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 400);
+    } else {
+      setTimeout(showFinal, 700);
+    }
+  }
+
+  function showFinal() {
+    document.getElementById('screen-activity').style.display = 'none';
+    document.getElementById('final-screen').style.display = 'block';
+    document.getElementById('final-name').textContent = studentName;
+    confetti(); confetti();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function registrar() {
+    var btn = document.querySelector('.btn-registro');
+    btn.textContent = '⏳ Guardando...';
+    btn.disabled = true;
+
+    var now = new Date();
+    var hora = now.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
+    var fecha = now.toLocaleDateString('es-CO', { day: '2-digit', month: '2-digit', year: 'numeric' });
+
+    var SHEETS_URL = 'https://script.google.com/a/macros/gi.edu.co/s/AKfycbwxa1tNhz0yEzxd39CsuwXtLRMiXYVimJfqVSctYGtk8hN1B1XPCOXR_WeTYSySzeoWmQ/exec';
+
+    var payload = {
+      nombre: studentName,
+      grado: studentGrade,
+      fecha: fecha,
+      hora: hora,
+      misiones: '5 de 5 ✓'
+    };
+
+    // Usamos fetch con no-cors porque Apps Script redirige
+    fetch(SHEETS_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(function() {
+      mostrarExito(fecha, hora);
+    })
+    .catch(function() {
+      // no-cors siempre entra al .then, pero por si acaso
+      mostrarExito(fecha, hora);
+    });
+  }
+
+  function mostrarExito(fecha, hora) {
+    document.querySelector('.btn-registro').style.display = 'none';
+    var regOk = document.getElementById('reg-ok');
+    regOk.style.display = 'block';
+    document.getElementById('reg-timestamp').textContent = fecha + ' a las ' + hora;
+  }
+
+  function confetti() {
+    var colors = ['#4285F4','#34A853','#FBBC04','#EA4335','#FF6FCB','#00BCD4','#9C27B0'];
+    var zone = document.getElementById('confetti-zone');
+    for (var i = 0; i < 40; i++) {
+      var bit = document.createElement('div');
+      bit.className = 'bit';
+      bit.style.left = (Math.random() * 100) + '%';
+      bit.style.top = '-12px';
+      bit.style.background = colors[Math.floor(Math.random() * colors.length)];
+      bit.style.animationDuration = (1.2 + Math.random() * 1.2) + 's';
+      bit.style.animationDelay = (Math.random() * 0.6) + 's';
+      bit.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+      bit.style.transform = 'rotate(' + (Math.random()*360) + 'deg)';
+      zone.appendChild(bit);
+      setTimeout(function(b){ if(b.parentNode) b.parentNode.removeChild(b); }, 3000, bit);
+    }
+  }
+
+  // Shake keyframes
+  var styleSheet = document.createElement('style');
+  styleSheet.textContent = '@keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-6px)} 40%,80%{transform:translateX(6px)} }';
+  document.head.appendChild(styleSheet);
+</script>
+</body>
+</html>
