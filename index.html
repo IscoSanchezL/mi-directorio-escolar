@@ -535,9 +535,13 @@ body.light .quick-notes-bar{background:linear-gradient(135deg,#fffdf5 0%,#fffbee
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import{getAuth,GoogleAuthProvider,signInWithPopup,signInWithRedirect,getRedirectResult,signOut,onAuthStateChanged}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import{getFirestore,doc,getDoc,setDoc,updateDoc,serverTimestamp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 const AUTHORIZED_EMAIL="franksanlo@gmail.com";
 const firebaseApp=initializeApp({apiKey:"AIzaSyCsHA5yATtVbAFAxEtHwP0E491p_eWpuvE",authDomain:"mi-directorio-escolar.firebaseapp.com",projectId:"mi-directorio-escolar",storageBucket:"mi-directorio-escolar.firebasestorage.app",messagingSenderId:"946739239308",appId:"1:946739239308:web:f1fe014d74baa1f6e11ea9"});
-const auth=getAuth(firebaseApp);const provider=new GoogleAuthProvider();
+const auth=getAuth(firebaseApp);const db=getFirestore(firebaseApp);const provider=new GoogleAuthProvider();
+window.firebaseModules={getFirestore,doc,getDoc,setDoc,updateDoc,serverTimestamp};
+window.dbInstance=db;
+window.authInstance=auth;
 provider.setCustomParameters({login_hint:AUTHORIZED_EMAIL,prompt:'select_account'});
 document.getElementById('google-signin-btn').addEventListener('click',async()=>{
   try{const r=await signInWithPopup(auth,provider);if(r.user.email!==AUTHORIZED_EMAIL){await signOut(auth);document.getElementById('login-error').style.display='block';}}
@@ -550,11 +554,12 @@ onAuthStateChanged(auth,user=>{
   if(user&&user.email===AUTHORIZED_EMAIL){
     document.getElementById('login-screen').classList.remove('show');
     document.getElementById('app').classList.add('show');
+    window.currentUser=user;
     const name=user.displayName||'Francisco Javier';
     document.getElementById('user-name').textContent=name;
     if(user.photoURL){document.getElementById('user-avatar').src=user.photoURL;document.getElementById('user-avatar').style.display='block';document.getElementById('user-avatar-placeholder').style.display='none';}
     else{document.getElementById('user-avatar-placeholder').textContent=name[0].toUpperCase();}
-    if(typeof loadState==='function'){loadState();renderSidebar();applyStoredColor();applyStoredLogo();applyStoredTheme();applyStoredSettings();}
+    if(typeof initFirestoreAndLoad==='function'){initFirestoreAndLoad();renderSidebar();applyStoredColor();applyStoredLogo();applyStoredTheme();applyStoredSettings();}
   }else{document.getElementById('app').classList.remove('show');document.getElementById('login-screen').classList.add('show');if(user)document.getElementById('login-error').style.display='block';}
 });
 </script>
@@ -597,6 +602,62 @@ function loadState(){
 }
 function saveState(){localStorage.setItem('mi-directorio-v3',JSON.stringify(state));}
 function uid(){return'id-'+Date.now()+'-'+Math.random().toString(36).slice(2,6);}
+
+/* ══ FIRESTORE INTEGRATION ══ */
+async function initFirestoreAndLoad(){
+  try{
+    const user=window.currentUser;
+    if(!user||!user.uid){loadState();return;}
+    window.userDocRef=window.firebaseModules.doc(window.dbInstance,'users',user.uid);
+    const docSnap=await window.firebaseModules.getDoc(window.userDocRef);
+    if(docSnap.exists()){
+      const data=docSnap.data();
+      state=data.state||state;
+      if(data.expandedGrades)expandedGrades=data.expandedGrades;
+      if(data.trash)localStorage.setItem('mde-trash',JSON.stringify(data.trash));
+      if(data.appName)localStorage.setItem('mde-app-name',data.appName);
+      if(data.appSub)localStorage.setItem('mde-app-sub',data.appSub);
+      if(data.userName)localStorage.setItem('mde-user-name',data.userName);
+      if(data.theme)localStorage.setItem('mde-theme',data.theme);
+      if(data.accentColor)localStorage.setItem('mde-accent',data.accentColor);
+      if(data.logoEmoji)localStorage.setItem('mde-logo-emoji',data.logoEmoji);
+      if(data.logoImg)localStorage.setItem('mde-logo-img',data.logoImg);
+      console.log('✓ Datos cargados desde Firestore');
+    }else{
+      loadState();
+      await saveStateToFirestore();
+      console.log('✓ Datos inicializados en Firestore');
+    }
+  }catch(err){console.error('Firestore load error:',err);loadState();}
+}
+async function saveStateToFirestore(){
+  if(!window.userDocRef){localStorage.setItem('mi-directorio-v3',JSON.stringify(state));return;}
+  try{
+    const trash=localStorage.getItem('mde-trash');
+    await window.firebaseModules.setDoc(window.userDocRef,{
+      state:state,
+      trash:trash?JSON.parse(trash):{},
+      expandedGrades:expandedGrades,
+      lastUpdated:window.firebaseModules.serverTimestamp(),
+      appName:localStorage.getItem('mde-app-name')||'Class Drive',
+      appSub:localStorage.getItem('mde-app-sub')||'GI School · Tecnología · PYP',
+      userName:localStorage.getItem('mde-user-name')||'Francisco Javier',
+      theme:localStorage.getItem('mde-theme')||'dark',
+      accentColor:localStorage.getItem('mde-accent')||'#f59e0b',
+      logoEmoji:localStorage.getItem('mde-logo-emoji')||'🏫',
+      logoImg:localStorage.getItem('mde-logo-img')||null
+    },{merge:true});
+  }catch(err){console.error('Firestore save error:',err);}
+}
+function saveState(){saveStateToFirestore();}
+function loadState(){
+  const s=localStorage.getItem('mi-directorio-v3');
+  if(s){try{state=JSON.parse(s);}catch(e){initDemo();}}else{initDemo();}
+  if(!state.view)state.view='grid';
+  Object.values(state.grades).forEach(g=>Object.values(g.groups).forEach(grp=>Object.values(grp.classes).forEach(cls=>Object.values(cls.resources).forEach(r=>{if(!r.comments)r.comments=[];}))));
+  expandedGrades={};
+}
+
 
 function initDemo(){
   state={grades:{},currentGrade:null,currentGroup:null,currentClass:null,view:'grid'};
