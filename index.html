@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mi Directorio Escolar</title>
+<title>Class Drive</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fira+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -78,8 +78,8 @@ body.light #sidebar{background:linear-gradient(180deg,#ffffff 0%,#f7f9fc 100%);b
 .group-item.active .group-dot{background:#7a4a00}
 .group-name{flex:1;font-size:12px;font-weight:600}
 .group-count{font-size:10px;color:var(--text3);background:var(--bg3);padding:1px 7px;border-radius:10px}
-.add-group-btn{display:flex;align-items:center;gap:5px;padding:5px 10px;font-size:11px;color:var(--text3);cursor:pointer;border-radius:8px;transition:all .15s;border:none;background:none;width:100%;margin-bottom:4px;font-family:inherit}
-.add-group-btn:hover{color:var(--accent);background:var(--bg3)}
+.add-group-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:9px 10px;font-size:11px;font-weight:700;color:#1a1000;cursor:pointer;border-radius:var(--radius);transition:all .2s;border:none;background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 100%);width:100%;margin:6px 0 4px;font-family:'Nunito',sans-serif;box-shadow:0 2px 8px rgba(245,158,11,.25)}
+.add-group-btn:hover{box-shadow:0 4px 14px rgba(245,158,11,.4);transform:translateY(-1px)}
 #sidebar-footer{padding:10px;border-top:1px solid var(--border)}
 .footer-row{display:flex;gap:5px;margin-bottom:6px}
 .footer-btn{flex:1;padding:7px 4px;font-size:10px;border-radius:8px;border:1px solid var(--border);background:rgba(255,255,255,.03);color:var(--text2);cursor:pointer;transition:all .15s;font-family:inherit}
@@ -405,6 +405,57 @@ body.light .quick-notes-bar{background:linear-gradient(135deg,#fffdf5 0%,#fffbee
 .file-input-wrap p{font-size:12px;color:var(--text2);margin-bottom:4px}
 .file-input-wrap small{font-size:11px;color:var(--text3)}
 
+
+/* ══ CLASS DRIVE EXTRAS ══ */
+.welcome-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:18px;width:100%;max-width:700px}
+.welcome-feature{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;text-align:center;transition:all .2s;cursor:default}
+.welcome-feature:hover{border-color:var(--accent);transform:translateY(-2px)}
+.wf-icon{font-size:26px;margin-bottom:6px}
+.wf-title{font-size:12px;font-weight:700;color:var(--text);font-family:'Nunito',sans-serif}
+.wf-desc{font-size:10px;color:var(--text3);margin-top:3px;line-height:1.4}
+.group-tabs{display:flex;gap:0;margin-bottom:16px;background:var(--bg3);border-radius:var(--radius);padding:4px;border:1px solid var(--border)}
+.group-tab{flex:1;padding:7px 8px;border-radius:7px;border:none;background:transparent;color:var(--text3);font-size:11px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;transition:all .2s;text-align:center}
+.group-tab:hover{color:var(--text2)}
+.group-tab.active{background:var(--accent);color:#1a1000;box-shadow:0 2px 8px rgba(245,158,11,.3)}
+.act-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.act-filters{display:flex;gap:6px;flex-wrap:wrap}
+.act-filter-btn{padding:4px 10px;border-radius:20px;border:1px solid var(--border);background:var(--bg3);color:var(--text3);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s}
+.act-filter-btn.active{background:var(--accent);color:#1a1000;border-color:var(--accent)}
+.activities-grid{display:flex;flex-direction:column;gap:10px}
+.activity-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius2);padding:14px 16px;transition:all .2s;box-shadow:var(--shadow-sm)}
+.activity-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.activity-card.pending{border-left:4px solid #f59e0b}
+.activity-card.inProgress{border-left:4px solid #3b82f6}
+.activity-card.completed{border-left:4px solid #10b981;opacity:.85}
+.ac-title{font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:var(--text);margin-bottom:6px}
+.ac-badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.ac-type-badge{padding:2px 9px;border-radius:12px;font-size:10px;font-weight:700;text-transform:uppercase}
+.ac-type-badge.tarea{background:rgba(59,130,246,.2);color:#7eb8ff}
+.ac-type-badge.anuncio{background:rgba(245,158,11,.2);color:#fcd34d}
+.ac-type-badge.material{background:rgba(16,185,129,.2);color:#4eda9e}
+.ac-type-badge.cuestionario{background:rgba(236,72,153,.2);color:#f472b6}
+.ac-type-badge.presentacion{background:rgba(139,92,246,.2);color:#c4b5fd}
+.ac-type-badge.video{background:rgba(239,68,68,.2);color:#fca5a5}
+.ac-status-badge{padding:2px 9px;border-radius:12px;font-size:10px;font-weight:700}
+.ac-status-badge.pending{background:rgba(245,158,11,.15);color:#fcd34d}
+.ac-status-badge.inProgress{background:rgba(59,130,246,.15);color:#93c5fd}
+.ac-status-badge.completed{background:rgba(16,185,129,.15);color:#6ee7b7}
+.ac-desc{font-size:12px;color:var(--text2);line-height:1.55;margin-bottom:10px}
+.ac-meta{display:flex;gap:12px;font-size:11px;color:var(--text3);flex-wrap:wrap;margin-bottom:8px}
+.ac-meta-item.overdue{color:#ef4444;font-weight:600}
+.ac-attachments{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.ac-attach{display:flex;align-items:center;gap:5px;padding:3px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;font-size:11px;color:var(--text2);text-decoration:none;transition:all .15s}
+.ac-attach:hover{border-color:var(--accent);color:var(--accent)}
+.ac-footer{display:flex;align-items:center;justify-content:space-between;padding-top:8px;border-top:1px solid var(--border)}
+.ac-actions{display:flex;gap:5px;flex-wrap:wrap}
+.ac-btn{padding:4px 9px;border-radius:6px;border:1px solid var(--border);background:var(--bg3);color:var(--text2);font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s}
+.ac-btn:hover{border-color:var(--accent);color:var(--accent)}
+.ac-btn.danger:hover{border-color:var(--danger);color:var(--danger)}
+.act-empty{text-align:center;padding:40px;color:var(--text3);background:var(--bg2);border:2px dashed var(--border);border-radius:var(--radius2)}
+.act-empty .ae-icon{font-size:38px;margin-bottom:10px}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:0}
+body.light .activity-card{background:#fff}
+body.light .activity-card:hover{box-shadow:0 6px 20px rgba(10,30,80,.1)}
 </style>
 </head>
 <body>
@@ -412,7 +463,7 @@ body.light .quick-notes-bar{background:linear-gradient(135deg,#fffdf5 0%,#fffbee
 
 <div id="login-screen">
   <div class="login-card">
-    <div class="login-logo"><span class="icon">🏫</span><h1>Mi Directorio Escolar</h1><p>GI School · Tecnología · PYP</p></div>
+    <div class="login-logo"><span class="icon">🏫</span><h1>Class Drive</h1><p>GI School · Tecnología · PYP</p></div>
     <button class="google-btn" id="google-signin-btn">
       <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">Iniciar sesión con Google
     </button>
@@ -432,7 +483,7 @@ body.light .quick-notes-bar{background:linear-gradient(135deg,#fffdf5 0%,#fffbee
             <div id="logo-edit-tip">✏️</div>
           </div>
           <div id="logo-text-area">
-            <h1>Mi Directorio Escolar</h1>
+            <h1>Class Drive</h1>
             <p>GI School · Tecnología · PYP</p>
           </div>
         </div>
@@ -471,9 +522,9 @@ body.light .quick-notes-bar{background:linear-gradient(135deg,#fffdf5 0%,#fffbee
         </div>
       </div>
       <div id="content">
-        <div id="welcome-screen">
+        <div id="welcome-screen" style="display:flex;flex-direction:column;align-items:center;text-align:center">
           <div style="font-size:52px">🏫</div>
-          <h2>¡Bienvenido, Francisco Javier!</h2>
+          <h2>¡Bienvenido a Class Drive!</h2>
           <p>Selecciona un grupo del menú lateral para gestionar tus clases y recursos.</p>
         </div>
         <div id="group-content" style="display:none">
@@ -568,7 +619,7 @@ body.light .quick-notes-bar{background:linear-gradient(135deg,#fffdf5 0%,#fffbee
     </div>
     <div class="settings-section">
       <div class="settings-section-title">Identidad de la app</div>
-      <div class="settings-row"><label>Nombre de la app</label><input type="text" id="cfg-app-name" placeholder="Mi Directorio Escolar"></div>
+      <div class="settings-row"><label>Nombre de la app</label><input type="text" id="cfg-app-name" placeholder="Class Drive"></div>
       <div class="settings-row"><label>Subtítulo</label><input type="text" id="cfg-app-sub" placeholder="GI School · Tecnología · PYP"></div>
     </div>
     <div class="settings-section">
@@ -688,243 +739,292 @@ function uid(){return'id-'+Date.now()+'-'+Math.random().toString(36).slice(2,6);
 let currentActivityTab='activities';
 let activityFilterStatus='all';
 
-function initActivities(grp){
-  if(!grp.activities)grp.activities={};
-}
+function initActivities(grp){if(!grp.activities)grp.activities={};}
 
 function switchGroupTab(tab){
   currentActivityTab=tab;
   document.querySelectorAll('.group-tab').forEach(t=>t.classList.remove('active'));
-  event.target.classList.add('active');
+  if(event&&event.target)event.target.classList.add('active');
   document.getElementById('activities-tab').style.display=tab==='activities'?'block':'none';
   document.getElementById('classes-tab').style.display=tab==='classes'?'block':'none';
   document.getElementById('calendar-tab').style.display=tab==='calendar'?'block':'none';
   if(tab==='activities')renderActivities();
-  else if(tab==='classes')renderGroupView();
+  else if(tab==='classes'){
+    renderCalendar();
+    if(state.currentGrade&&state.currentGroup){
+      const classes=Object.values(state.grades[state.currentGrade].groups[state.currentGroup].classes);
+      if(state.view==='grid')renderGridView(classes);else renderListView(classes);
+    }
+  }
   else if(tab==='calendar')renderCalendar();
 }
 
 function renderActivities(){
+  const tab=document.getElementById('activities-tab');if(!tab)return;
   const grp=state.grades[state.currentGrade]?.groups[state.currentGroup];
-  if(!grp)return;
+  if(!grp){tab.innerHTML='';return;}
   initActivities(grp);
   const acts=Object.values(grp.activities||{});
   const filtered=activityFilterStatus==='all'?acts:acts.filter(a=>a.status===activityFilterStatus);
   const sorted=filtered.sort((a,b)=>new Date(b.dateCreated)-new Date(a.dateCreated));
-
-  document.getElementById('activities-filters').innerHTML=`<div class="act-filter">
-    <button class="act-filter-btn${activityFilterStatus==='all'?' active':''}" onclick="filterActivities('all')">Todas</button>
-    <button class="act-filter-btn${activityFilterStatus==='pending'?' active':''}" onclick="filterActivities('pending')">⏳ Pendientes</button>
-    <button class="act-filter-btn${activityFilterStatus==='inProgress'?' active':''}" onclick="filterActivities('inProgress')">▶ En progreso</button>
-    <button class="act-filter-btn${activityFilterStatus==='completed'?' active':''}" onclick="filterActivities('completed')">✓ Entregado</button>
-  </div>`;
-
-  const list=document.getElementById('activities-list');
-  if(!sorted.length){list.innerHTML='<div class="act-empty">📭 Sin actividades aún. ¡Crea la primera!</div>';return;}
-
-  list.innerHTML=sorted.map(a=>{
-    const info=RES_TYPES[a.type]||{icon:'📋',label:a.type};
-    const attachHtml=a.attachments&&a.attachments.length?`<div class="ac-attachments"><div class="ac-attach-label">📎 Adjuntos (${a.attachments.length})</div>${a.attachments.map(att=>`<div class="ac-attach-item"><span class="ac-attach-icon">📄</span><a href="${att.url}" target="_blank" style="color:var(--accent);text-decoration:none;flex:1">${escHtml(att.name)}</a></div>`).join('')}</div>`:'';
-    const dueHtml=a.dateDue?`<div class="ac-meta-item">📌 ${new Date(a.dateDue).toLocaleDateString('es-CO')}</div>`:'';
-    return`<div class="activity-card ${a.status}">
-      <div class="ac-top">
-        <div class="ac-title">${escHtml(a.title)}</div>
-        <span class="ac-type ${a.type}">${a.type}</span>
+  const pending=acts.filter(a=>a.status==='pending').length;
+  const inProg=acts.filter(a=>a.status==='inProgress').length;
+  const done=acts.filter(a=>a.status==='completed').length;
+  tab.innerHTML=`
+    <div class="act-topbar">
+      <div class="act-filters">
+        <button class="act-filter-btn${activityFilterStatus==='all'?' active':''}" onclick="filterActs('all')">Todas (${acts.length})</button>
+        <button class="act-filter-btn${activityFilterStatus==='pending'?' active':''}" onclick="filterActs('pending')">⏳ Pendientes (${pending})</button>
+        <button class="act-filter-btn${activityFilterStatus==='inProgress'?' active':''}" onclick="filterActs('inProgress')">▶ En progreso (${inProg})</button>
+        <button class="act-filter-btn${activityFilterStatus==='completed'?' active':''}" onclick="filterActs('completed')">✓ Listas (${done})</button>
       </div>
-      <div class="ac-meta">${dueHtml}<span class="ac-meta-item">Por ${escHtml(a.assignedTo||'ti')}</span></div>
-      ${a.description?`<div class="ac-desc">${escHtml(a.description)}</div>`:''}
-      <span class="ac-status ${a.status}">${a.status==='pending'?'⏳ Pendiente':a.status==='inProgress'?'▶ En Progreso':'✓ Completado'}</span>
-      ${attachHtml}
-      <div class="ac-actions">
-        <button class="ac-actions-btn" onclick="openEditActivityModal('${a.id}')">✏️ Editar</button>
-        <button class="ac-actions-btn" onclick="changeActivityStatus('${a.id}')">${a.status==='completed'?'↩ Reabierto':'✓ Marcar'}</button>
-        <button class="ac-actions-btn danger" onclick="deleteActivity('${a.id}')">🗑 Eliminar</button>
-      </div>
-    </div>`;
-  }).join('');
+      <button class="btn btn-primary btn-sm" onclick="openActivityModal()">+ Nueva Actividad</button>
+    </div>
+    <div class="activities-grid">${sorted.length===0?`<div class="act-empty"><div class="ae-icon">📭</div><p>Sin actividades aún.<br>Usa <strong>+ Nueva Actividad</strong> para crear la primera.</p></div>`:sorted.map(a=>buildActCard(a)).join('')}</div>`;
 }
 
-function filterActivities(status){
-  activityFilterStatus=status;
-  renderActivities();
+function buildActCard(a){
+  const today=new Date();today.setHours(0,0,0,0);
+  const due=a.dateDue?new Date(a.dateDue+'T00:00:00'):null;
+  const overdue=due&&due<today&&a.status!=='completed';
+  const dueStr=due?due.toLocaleDateString('es-CO',{day:'numeric',month:'short',year:'numeric'}):'Sin fecha límite';
+  const icons={tarea:'✏️',anuncio:'📢',material:'📚',cuestionario:'❓',presentacion:'📊',video:'🎬'};
+  const attachHtml=(a.attachments||[]).map(att=>`<a class="ac-attach" href="${escAttr(att.url)}" target="_blank" rel="noopener"><span>${att.icon||'📎'}</span> ${escHtml(att.name)}</a>`).join('');
+  const statusLabels={pending:'⏳ Pendiente',inProgress:'▶ En Progreso',completed:'✓ Completada'};
+  const comments=(a.comments||[]);
+  const lastNote=comments.length?`<div style="font-size:11px;color:var(--text2);background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.18);border-radius:6px;padding:5px 10px;margin-bottom:8px;line-height:1.4">💬 ${escHtml(comments[comments.length-1].text)} <span style="color:var(--text3)">(${comments[comments.length-1].date})</span></div>`:'';
+  return`<div class="activity-card ${a.status}">
+    <div class="ac-title">${escHtml(a.title)}</div>
+    <div class="ac-badges">
+      <span class="ac-type-badge ${a.type}">${icons[a.type]||'📋'} ${a.type}</span>
+      <span class="ac-status-badge ${a.status}">${statusLabels[a.status]||a.status}</span>
+      ${overdue?'<span class="ac-status-badge" style="background:rgba(239,68,68,.18);color:#fca5a5">⚠ Vencida</span>':''}
+    </div>
+    ${a.description?`<div class="ac-desc">${escHtml(a.description)}</div>`:''}
+    <div class="ac-meta">
+      <span class="ac-meta-item${overdue?' overdue':''}">📅 ${dueStr}</span>
+      ${a.assignedTo?`<span class="ac-meta-item">👥 ${escHtml(a.assignedTo)}</span>`:''}
+      ${comments.length?`<span class="ac-meta-item">💬 ${comments.length} nota${comments.length!==1?'s':''}</span>`:''}
+    </div>
+    ${lastNote}
+    ${attachHtml?`<div class="ac-attachments">${attachHtml}</div>`:''}
+    <div class="ac-footer">
+      <span style="font-size:10px;color:var(--text3)">${a.dateCreated?new Date(a.dateCreated).toLocaleDateString('es-CO'):''}</span>
+      <div class="ac-actions">
+        <button class="ac-btn" onclick="addActNote('${a.id}')">💬 Nota</button>
+        <button class="ac-btn" onclick="cycleActStatus('${a.id}')">${a.status==='completed'?'↩ Reabrir':'▶ Avanzar'}</button>
+        <button class="ac-btn" onclick="openEditActivityModal('${a.id}')">✏️ Editar</button>
+        <button class="ac-btn danger" onclick="deleteActivity('${a.id}')">🗑</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function filterActs(s){activityFilterStatus=s;renderActivities();}
+
+function cycleActStatus(actId){
+  const grp=state.grades[state.currentGrade]?.groups[state.currentGroup];
+  const act=grp?.activities[actId];if(!act)return;
+  const s=['pending','inProgress','completed'];
+  act.status=s[(s.indexOf(act.status)+1)%s.length];
+  saveState();renderActivities();
+}
+
+function addActNote(actId){
+  const grp=state.grades[state.currentGrade]?.groups[state.currentGroup];
+  const act=grp?.activities[actId];if(!act)return;
+  if(!act.comments)act.comments=[];
+  openModal('💬 Nota de seguimiento',
+    `<div class="form-group"><label>¿Hasta dónde llegaste? ¿Qué falta para la próxima clase?</label><textarea id="f-note" placeholder="Ej: Terminamos el ejercicio 3, falta la conclusión..." autofocus style="min-height:90px"></textarea></div>`,
+    ()=>{
+      const text=document.getElementById('f-note').value.trim();if(!text)return;
+      act.comments.push({text,date:new Date().toLocaleDateString('es-CO'),ts:Date.now()});
+      saveState();closeModal();renderActivities();
+    });
+}
+
+function getFileIcon(url){
+  if(!url)return'📎';const u=url.toLowerCase();
+  if(u.includes('youtube')||u.includes('youtu.be'))return'🎬';
+  if(u.includes('drive.google'))return'📁';
+  if(u.includes('docs.google'))return'📝';
+  if(u.includes('slides.google'))return'📊';
+  if(u.includes('forms.google'))return'📋';
+  if(u.includes('.pdf'))return'📄';
+  if(u.includes('.jpg')||u.includes('.png')||u.includes('.gif')||u.includes('.webp'))return'🖼️';
+  if(u.includes('.mp4')||u.includes('.mov')||u.includes('.avi'))return'🎬';
+  return'🔗';
 }
 
 function openActivityModal(){
   openModal('📋 Nueva Actividad',`
-    <div class="form-row">
-      <div class="form-group" style="grid-column:1/-1"><label>Título</label><input id="f-act-title" placeholder="Ej: Tarea sobre fracciones" autofocus></div>
-    </div>
-    <div class="form-row">
-      <div class="form-group"><label>Tipo</label><select id="f-act-type">
-        <option value="tarea">✏️ Tarea</option>
-        <option value="anuncio">📢 Anuncio</option>
-        <option value="material">📚 Material</option>
-        <option value="cuestionario">❓ Cuestionario</option>
+    <div class="form-group"><label>Título de la actividad</label><input id="f-act-title" placeholder="Ej: Tarea sobre el sistema solar" autofocus></div>
+    <div class="form-row-2" style="margin-bottom:14px">
+      <div class="form-group" style="margin-bottom:0"><label>Tipo</label><select id="f-act-type">
+        <option value="tarea">✏️ Tarea</option><option value="anuncio">📢 Anuncio</option>
+        <option value="material">📚 Material</option><option value="cuestionario">❓ Cuestionario</option>
+        <option value="presentacion">📊 Presentación</option><option value="video">🎬 Video</option>
       </select></div>
-      <div class="form-group"><label>Asignado a</label><input id="f-act-assigned" placeholder="Estudiantes"></div>
+      <div class="form-group" style="margin-bottom:0"><label>Asignado a</label><input id="f-act-assigned" placeholder="Ej: Todos, Grupo A..."></div>
     </div>
-    <div class="form-row full">
-      <div class="form-group"><label>Descripción</label><textarea id="f-act-desc" placeholder="Detalles de la actividad..."></textarea></div>
+    <div class="form-group"><label>Instrucciones o descripción</label><textarea id="f-act-desc" placeholder="Describe lo que deben hacer los estudiantes, materiales necesarios, etc." style="min-height:80px"></textarea></div>
+    <div class="form-row-2" style="margin-bottom:14px">
+      <div class="form-group" style="margin-bottom:0"><label>📅 Fecha de asignación</label><input type="date" id="f-act-start"></div>
+      <div class="form-group" style="margin-bottom:0"><label>⏰ Fecha límite de entrega</label><input type="date" id="f-act-due"></div>
     </div>
-    <div class="form-row">
-      <div class="form-group"><label>Fecha de asignación</label><input type="date" id="f-act-assigned-date"></div>
-      <div class="form-group"><label>Fecha de entrega (Deadline)</label><input type="date" id="f-act-due-date"></div>
-    </div>
-    <div class="form-row full">
-      <div class="form-group">
-        <label>Adjuntar archivo o enlace</label>
-        <div class="file-input-wrap" onclick="document.getElementById('f-act-file').click()">
-          <p>📎 Arrastra archivo o haz clic para seleccionar</p>
-          <small>PDF, imagen, enlace web, etc.</small>
-          <input type="file" id="f-act-file">
-        </div>
-        <div id="f-act-files-list" style="margin-top:8px"></div>
-      </div>
-    </div>
-  `,()=>{
-    const title=document.getElementById('f-act-title').value.trim();
-    if(!title){alert('El título es obligatorio');return;}
-    const grp=state.grades[state.currentGrade]?.groups[state.currentGroup];if(!grp)return;
-    initActivities(grp);
-    const id=uid();
-    grp.activities[id]={
-      id,title,type:document.getElementById('f-act-type').value,
-      description:document.getElementById('f-act-desc').value,
-      assignedTo:document.getElementById('f-act-assigned').value,
-      dateCreated:new Date().toISOString(),
-      dateAssigned:document.getElementById('f-act-assigned-date').value,
-      dateDue:document.getElementById('f-act-due-date').value,
-      attachments:[],status:'pending'
-    };
-    saveState();closeModal();renderActivities();
-  });
-  document.getElementById('f-act-assigned-date').value=new Date().toISOString().slice(0,10);
+    <div class="form-group"><label>🔗 Enlace del recurso (Google Drive, YouTube, Slides...)</label><input id="f-act-url" placeholder="https://drive.google.com/... o https://youtu.be/..."></div>
+    <div class="form-group"><label>📎 Nombre del recurso adjunto</label><input id="f-act-fname" placeholder="Ej: Guía de trabajo semana 5, Video explicativo..."></div>`,
+    ()=>{
+      const title=document.getElementById('f-act-title').value.trim();
+      if(!title){alert('El título es obligatorio.');return;}
+      const grp=state.grades[state.currentGrade]?.groups[state.currentGroup];if(!grp)return;
+      initActivities(grp);
+      const id=uid();
+      const url=document.getElementById('f-act-url').value.trim();
+      const fname=document.getElementById('f-act-fname').value.trim();
+      const attachments=url?[{name:fname||'Recurso',url,icon:getFileIcon(url)}]:[];
+      grp.activities[id]={id,title,
+        type:document.getElementById('f-act-type').value,
+        description:document.getElementById('f-act-desc').value,
+        assignedTo:document.getElementById('f-act-assigned').value,
+        dateCreated:new Date().toISOString(),
+        dateAssigned:document.getElementById('f-act-start').value,
+        dateDue:document.getElementById('f-act-due').value,
+        attachments,comments:[],status:'pending'
+      };
+      saveState();closeModal();renderActivities();
+    });
+  setTimeout(()=>{
+    const el=document.getElementById('f-act-start');
+    if(el)el.value=new Date().toISOString().slice(0,10);
+  },60);
 }
 
 function openEditActivityModal(actId){
   const grp=state.grades[state.currentGrade]?.groups[state.currentGroup];
-  const act=grp.activities[actId];
-  if(!act)return;
+  const act=grp?.activities[actId];if(!act)return;
+  const existingUrl=(act.attachments&&act.attachments[0]?.url)||'';
+  const existingName=(act.attachments&&act.attachments[0]?.name)||'';
   openModal('✏️ Editar Actividad',`
-    <div class="form-row">
-      <div class="form-group" style="grid-column:1/-1"><label>Título</label><input id="f-act-title" value="${escAttrQ(act.title)}" autofocus></div>
-    </div>
-    <div class="form-row">
-      <div class="form-group"><label>Tipo</label><select id="f-act-type">
+    <div class="form-group"><label>Título</label><input id="f-act-title" value="${escAttrQ(act.title)}" autofocus></div>
+    <div class="form-row-2" style="margin-bottom:14px">
+      <div class="form-group" style="margin-bottom:0"><label>Tipo</label><select id="f-act-type">
         <option value="tarea"${act.type==='tarea'?' selected':''}>✏️ Tarea</option>
         <option value="anuncio"${act.type==='anuncio'?' selected':''}>📢 Anuncio</option>
         <option value="material"${act.type==='material'?' selected':''}>📚 Material</option>
         <option value="cuestionario"${act.type==='cuestionario'?' selected':''}>❓ Cuestionario</option>
+        <option value="presentacion"${act.type==='presentacion'?' selected':''}>📊 Presentación</option>
+        <option value="video"${act.type==='video'?' selected':''}>🎬 Video</option>
       </select></div>
-      <div class="form-group"><label>Asignado a</label><input id="f-act-assigned" value="${escAttrQ(act.assignedTo||'')}"></div>
+      <div class="form-group" style="margin-bottom:0"><label>Estado</label><select id="f-act-status">
+        <option value="pending"${act.status==='pending'?' selected':''}>⏳ Pendiente</option>
+        <option value="inProgress"${act.status==='inProgress'?' selected':''}>▶ En progreso</option>
+        <option value="completed"${act.status==='completed'?' selected':''}>✓ Completada</option>
+      </select></div>
     </div>
-    <div class="form-row full">
-      <div class="form-group"><label>Descripción</label><textarea id="f-act-desc">${escHtml(act.description||'')}</textarea></div>
+    <div class="form-group"><label>Descripción</label><textarea id="f-act-desc" style="min-height:80px">${escHtml(act.description||'')}</textarea></div>
+    <div class="form-row-2" style="margin-bottom:14px">
+      <div class="form-group" style="margin-bottom:0"><label>Fecha de asignación</label><input type="date" id="f-act-start" value="${act.dateAssigned||''}"></div>
+      <div class="form-group" style="margin-bottom:0"><label>Fecha límite</label><input type="date" id="f-act-due" value="${act.dateDue||''}"></div>
     </div>
-    <div class="form-row">
-      <div class="form-group"><label>Fecha de asignación</label><input type="date" id="f-act-assigned-date" value="${act.dateAssigned||''}"></div>
-      <div class="form-group"><label>Fecha de entrega</label><input type="date" id="f-act-due-date" value="${act.dateDue||''}"></div>
-    </div>
-  `,()=>{
-    const title=document.getElementById('f-act-title').value.trim();
-    if(!title){alert('El título es obligatorio');return;}
-    act.title=title;act.type=document.getElementById('f-act-type').value;
-    act.description=document.getElementById('f-act-desc').value;act.assignedTo=document.getElementById('f-act-assigned').value;
-    act.dateAssigned=document.getElementById('f-act-assigned-date').value;act.dateDue=document.getElementById('f-act-due-date').value;
-    saveState();closeModal();renderActivities();
-  });
-}
-
-function changeActivityStatus(actId){
-  const grp=state.grades[state.currentGrade]?.groups[state.currentGroup];
-  const act=grp.activities[actId];
-  if(!act)return;
-  const statuses=['pending','inProgress','completed'];
-  const idx=statuses.indexOf(act.status);
-  act.status=statuses[(idx+1)%statuses.length];
-  saveState();renderActivities();
+    <div class="form-group"><label>🔗 Enlace del recurso</label><input id="f-act-url" value="${escAttrQ(existingUrl)}"></div>
+    <div class="form-group"><label>📎 Nombre del recurso</label><input id="f-act-fname" value="${escAttrQ(existingName)}"></div>`,
+    ()=>{
+      const title=document.getElementById('f-act-title').value.trim();
+      if(!title){alert('El título es obligatorio.');return;}
+      act.title=title;act.type=document.getElementById('f-act-type').value;
+      act.status=document.getElementById('f-act-status').value;
+      act.description=document.getElementById('f-act-desc').value;
+      act.dateAssigned=document.getElementById('f-act-start').value;
+      act.dateDue=document.getElementById('f-act-due').value;
+      const url=document.getElementById('f-act-url').value.trim();
+      const fname=document.getElementById('f-act-fname').value.trim();
+      act.attachments=url?[{name:fname||'Recurso',url,icon:getFileIcon(url)}]:[];
+      saveState();closeModal();renderActivities();
+    });
 }
 
 function deleteActivity(actId){
   if(!confirm('¿Eliminar esta actividad?'))return;
   const grp=state.grades[state.currentGrade]?.groups[state.currentGroup];
-  delete grp.activities[actId];
-  saveState();renderActivities();
-}
-
-
-/* ══ FIRESTORE INTEGRATION ══ */
-async function initFirestoreAndLoad(){
-  try{
-    const user=window.currentUser;
-    if(!user||!user.uid){loadState();return;}
-    window.userDocRef=window.firebaseModules.doc(window.dbInstance,'users',user.uid);
-    const docSnap=await window.firebaseModules.getDoc(window.userDocRef);
-    if(docSnap.exists()){
-      const data=docSnap.data();
-      state=data.state||state;
-      if(data.expandedGrades)expandedGrades=data.expandedGrades;
-      if(data.trash)localStorage.setItem('mde-trash',JSON.stringify(data.trash));
-      if(data.appName)localStorage.setItem('mde-app-name',data.appName);
-      if(data.appSub)localStorage.setItem('mde-app-sub',data.appSub);
-      if(data.userName)localStorage.setItem('mde-user-name',data.userName);
-      if(data.theme)localStorage.setItem('mde-theme',data.theme);
-      if(data.accentColor)localStorage.setItem('mde-accent',data.accentColor);
-      if(data.logoEmoji)localStorage.setItem('mde-logo-emoji',data.logoEmoji);
-      if(data.logoImg)localStorage.setItem('mde-logo-img',data.logoImg);
-      console.log('✓ Datos cargados desde Firestore');
-    }else{
-      loadState();
-      await saveStateToFirestore();
-      console.log('✓ Datos inicializados en Firestore');
-    }
-  }catch(err){console.error('Firestore load error:',err);loadState();}
-}
-async function saveStateToFirestore(){
-  if(!window.userDocRef){localStorage.setItem('mi-directorio-v3',JSON.stringify(state));return;}
-  try{
-    const trash=localStorage.getItem('mde-trash');
-    await window.firebaseModules.setDoc(window.userDocRef,{
-      state:state,
-      trash:trash?JSON.parse(trash):{},
-      expandedGrades:expandedGrades,
-      lastUpdated:window.firebaseModules.serverTimestamp(),
-      appName:localStorage.getItem('mde-app-name')||'Class Drive',
-      appSub:localStorage.getItem('mde-app-sub')||'GI School · Tecnología · PYP',
-      userName:localStorage.getItem('mde-user-name')||'Francisco Javier',
-      theme:localStorage.getItem('mde-theme')||'dark',
-      accentColor:localStorage.getItem('mde-accent')||'#f59e0b',
-      logoEmoji:localStorage.getItem('mde-logo-emoji')||'🏫',
-      logoImg:localStorage.getItem('mde-logo-img')||null
-    },{merge:true});
-  }catch(err){console.error('Firestore save error:',err);}
-}
-function saveState(){saveStateToFirestore();}
-function loadState(){
-  const s=localStorage.getItem('mi-directorio-v3');
-  if(s){try{state=JSON.parse(s);}catch(e){initDemo();}}else{initDemo();}
-  if(!state.view)state.view='grid';
-  Object.values(state.grades).forEach(g=>Object.values(g.groups).forEach(grp=>Object.values(grp.classes).forEach(cls=>Object.values(cls.resources).forEach(r=>{if(!r.comments)r.comments=[];}))));
-  expandedGrades={};
-}
-
-
-function initDemo(){
-  state={grades:{},currentGrade:null,currentGroup:null,currentClass:null,view:'grid'};
-  currentActivityTab='activities';activityFilterStatus='all';
-  for(let i=0;i<6;i++){
-    const gid='grade-'+(i+1);
-    state.grades[gid]={id:gid,name:GRADE_NAMES[i],number:i+1,groups:{}};
-    ['A','B'].forEach(l=>{const grpId='grp-'+gid+'-'+l;state.grades[gid].groups[grpId]={id:grpId,name:(i+1)+'°'+l,classes:{}};});
+  if(grp?.activities[actId]){
+    moveToTrash('activities',JSON.parse(JSON.stringify(grp.activities[actId])),{gradeId:state.currentGrade,groupId:state.currentGroup});
+    delete grp.activities[actId];
+    saveState();renderActivities();
   }
-  const todayStr=new Date().toISOString().slice(0,10);
-  const demo=state.grades['grade-1'].groups['grp-grade-1-A'];
-  const c1=uid();demo.classes[c1]={id:c1,title:'Introducción a la Tecnología',desc:'Exploración de dispositivos digitales y su uso cotidiano.',date:todayStr,resources:{}};
-  const r1=uid();demo.classes[c1].resources[r1]={id:r1,type:'presentacion',title:'¿Qué es la tecnología?',desc:'Diapositivas de introducción.',url:'https://docs.google.com',comments:[]};
-  const r2=uid();demo.classes[c1].resources[r2]={id:r2,type:'actividad',title:'Dibuja tu dispositivo favorito',desc:'Los estudiantes dibujan y describen su dispositivo favorito.',url:'',comments:[{text:'Llegamos hasta el paso 2. Continuar con la descripción escrita en la próxima clase.',date:todayStr}]};
-  const c2=uid();demo.classes[c2]={id:c2,title:'Dispositivos de Entrada y Salida',desc:'Clasificación de periféricos según su función.',date:todayStr,resources:{}};
-  const r3=uid();demo.classes[c2].resources[r3]={id:r3,type:'plan',title:'Plan de clase — Periféricos',desc:'Planeación con apertura, desarrollo y cierre.',url:'',comments:[]};
-  saveState();
+}
+
+
+/* ══ GRUPOS EDITAR/ELIMINAR ══ */
+let openCtxMenuId=null;
+// Override renderSidebar to include group context menu
+function renderSidebar(){
+  const list=document.getElementById('grades-list');
+  const q=(document.getElementById('search-input')?.value||'').toLowerCase();
+  list.innerHTML='';openCtxMenuId=null;
+  Object.values(state.grades).forEach((grade,gi)=>{
+    const isExp=expandedGrades[grade.id];
+    const groupsHtml=Object.values(grade.groups).map(grp=>{
+      if(q&&!grp.name.toLowerCase().includes(q)&&!Object.values(grp.classes).some(c=>c.title.toLowerCase().includes(q)))return'';
+      const cnt=Object.keys(grp.classes).length;
+      return`<div style="position:relative">
+        <div class="group-item${state.currentGroup===grp.id?' active':''}" onclick="selectGroup('${grade.id}','${grp.id}')">
+          <span class="group-dot"></span><span class="group-name">${escHtml(grp.name)}</span><span class="group-count">${cnt}</span>
+          <button class="group-ctx-btn" onclick="event.stopPropagation();toggleCtxMenu('${grp.id}')" title="Opciones">⋯</button>
+        </div>
+        <div class="ctx-menu" id="ctx-${grp.id}">
+          <div class="ctx-item" onclick="openEditGroupModal('${grade.id}','${grp.id}')">✏️ Renombrar</div>
+          <div class="ctx-item danger" onclick="deleteGroup('${grade.id}','${grp.id}')">🗑 Eliminar grupo</div>
+        </div>
+      </div>`;
+    }).join('');
+    const div=document.createElement('div');div.className='grade-item';
+    div.innerHTML=`<div class="grade-header${state.currentGrade===grade.id?' active':''}" onclick="toggleGrade('${grade.id}')">
+      <span class="grade-icon">${GRADE_ICONS[gi]}</span><span class="grade-name">${grade.name}</span>
+      <span class="grade-arrow${isExp?' open':''}">▶</span></div>
+      <div class="groups-list${isExp?' open':''}">
+        ${groupsHtml}
+        <div class="add-group-section">
+          <button class="add-group-btn-primary" onclick="event.stopPropagation();openGroupModal('${grade.id}')">
+            <span>➕</span> Crear Grupo
+          </button>
+        </div>
+      </div>`;
+    list.appendChild(div);
+  });
+}
+document.getElementById('search-input')?.addEventListener('input',renderSidebar);
+
+function toggleCtxMenu(grpId){
+  if(openCtxMenuId&&openCtxMenuId!==grpId){document.getElementById('ctx-'+openCtxMenuId)?.classList.remove('show');}
+  const m=document.getElementById('ctx-'+grpId);if(m){m.classList.toggle('show');openCtxMenuId=m.classList.contains('show')?grpId:null;}
+}
+document.addEventListener('click',function(e){
+  if(openCtxMenuId&&!e.target.closest('.group-ctx-btn')&&!e.target.closest('.ctx-menu')){
+    document.getElementById('ctx-'+openCtxMenuId)?.classList.remove('show');openCtxMenuId=null;
+  }
+});
+function closeCtxMenu(){if(openCtxMenuId){document.getElementById('ctx-'+openCtxMenuId)?.classList.remove('show');openCtxMenuId=null;}}
+function openEditGroupModal(gid,grpId){
+  closeCtxMenu();
+  const grp=state.grades[gid].groups[grpId];
+  openModal('Renombrar Grupo',`<div class="form-group"><label>Nombre del grupo</label><input id="f-grp-name" value="${escAttrQ(grp.name)}" autofocus></div>`,
+    ()=>{const name=document.getElementById('f-grp-name').value.trim();if(!name){alert('Escribe el nombre.');return;}
+      grp.name=name;saveState();closeModal();renderSidebar();if(state.currentGroup===grpId)renderGroupView();});
+}
+function deleteGroup(gid,grpId){
+  closeCtxMenu();
+  const grp=state.grades[gid].groups[grpId];
+  if(!confirm(`¿Mover el grupo "${grp.name}" a la papelera?`))return;
+  moveToTrash('groups',JSON.parse(JSON.stringify(grp)),{gradeId:gid});
+  delete state.grades[gid].groups[grpId];saveState();
+  if(state.currentGroup===grpId){state.currentGroup=null;state.currentClass=null;
+    document.getElementById('group-content').style.display='none';
+    document.getElementById('welcome-screen').style.display='flex';
+    document.getElementById('add-class-btn').style.display='none';
+    document.getElementById('breadcrumb').innerHTML='Class Drive';
+  }
+  renderSidebar();
 }
 
 /* ══ SIDEBAR ══ (definido más abajo con menú de contexto de grupos) */
@@ -1666,6 +1766,29 @@ function deleteGroup(gid,grpId){
   }
   renderSidebar();
 }
+
+/* ══ NOTAS RÁPIDAS ══ */
+function renderQuickNotes(){
+  const sec=document.getElementById('quick-notes-section');if(!sec)return;
+  const grp=state.grades[state.currentGrade]?.groups[state.currentGroup];if(!grp)return;
+  if(!grp.notes)grp.notes='';
+  sec.innerHTML=`<div class="quick-notes-bar">
+    <div class="qn-header"><span class="qn-title">📝 Notas rápidas — ${escHtml(grp.name)}</span></div>
+    <textarea class="qn-textarea" id="qn-text" placeholder="Anota recordatorios, pendientes o ideas para este grupo...">${escHtml(grp.notes)}</textarea>
+    <button class="qn-save-btn" onclick="saveQuickNotes()">Guardar nota</button>
+  </div>`;
+}
+function saveQuickNotes(){
+  const text=document.getElementById('qn-text')?.value||'';
+  const grp=state.grades[state.currentGrade]?.groups[state.currentGroup];if(!grp)return;
+  grp.notes=text;saveState();
+  const btn=document.querySelector('.qn-save-btn');if(btn){btn.textContent='✓ Guardado';setTimeout(()=>btn.textContent='Guardar nota',1400);}
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){closeModal();closeColorPicker();closeLogoPicker();closeSettings();closeTrash();closeCtxMenu();}
+  if(e.key==='Enter'&&document.getElementById('modal-overlay').classList.contains('show')&&document.activeElement.tagName!=='TEXTAREA')modalSaveHandler();
+});
 
 /* ══ NOTAS RÁPIDAS ══ */
 function renderQuickNotes(){
